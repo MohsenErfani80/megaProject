@@ -1,0 +1,100 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:6
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27018:27017"
+    volumes:
+      - C:/Users/mohse/OneDrive/دسکتاپ/project/DB:/data/db
+    networks:
+      - backend
+  connapp:
+    image: connapp:1.0.0
+    container_name: connapp
+    restart: always
+    ports:
+      - "3000:3000"
+    networks:
+      - backend
+
+
+
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper
+    restart: always
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    networks:
+      - backend
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka
+    restart: always
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
+
+      KAFKA_LISTENER_SECURITY_PROTOCOL: PLAINTEXT
+      KAFKA_LISTENER_PORT: 9092
+      
+
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    ports:
+      - "9092:9092"
+    networks:
+      - backend
+
+  influxdb:
+    image: influxdb:alpine
+    container_name: influxdb
+    restart: always
+    ports:
+      - "8086:8086"
+    volumes:
+      - C:/Users/mohse/OneDrive/دسکتاپ/project/DB/influxDB:/var/lib/influxdb2
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=admin123
+      - DOCKER_INFLUXDB_INIT_ORG=my-org
+      - DOCKER_INFLUXDB_INIT_BUCKET=my-bucket
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=my-secret-token
+
+    networks:
+      - backend
+
+  kafka_data_new:
+    image: kafka_data
+    container_name: kafka_data_1
+    restart: always
+    ports:
+      - "3002:3002"
+    networks:
+      - backend
+
+
+  
+  influxdb_data_new:
+    image: influxdbimg
+    container_name: influx_data_test
+    restart: always
+    ports:
+      - "3001:3001"
+    networks:
+      - backend
+
+
+networks:
+  backend:
