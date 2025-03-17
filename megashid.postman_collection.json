@@ -1,0 +1,204 @@
+{
+	"info": {
+		"_postman_id": "ab61d3f3-0ff3-4471-991c-e1ad768a1c20",
+		"name": "megashid",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28720525"
+	},
+	"item": [
+		{
+			"name": "connection app",
+			"item": [
+				{
+					"name": "update_connection",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"client_ip\": \"192.168.30.30\",\r\n    \"client_port\": 200\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/connection/v1/update_connection/connection_1741727790743",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"connection",
+								"v1",
+								"update_connection",
+								"connection_1741727790743"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove_connection",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/connection/v1/remove_connection/connection_1741727790743",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"connection",
+								"v1",
+								"remove_connection",
+								"connection_1741727790743"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_all_connection",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/connection/v1/get_all_connection",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"connection",
+								"v1",
+								"get_all_connection"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register_connection",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{       \r\n    \"client_ip\": \"192.168.30.30\",\r\n    \"client_port\": 110,\r\n    \"server_ip\": \"192.168.20.20\",\r\n    \"server_port\": 110,\r\n    \"protocol\": \"HTTPS\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3008/connection/v1/register_connection",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3008",
+							"path": [
+								"connection",
+								"v1",
+								"register_connection"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "kafka app",
+			"item": [
+				{
+					"name": "insert to kafka",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ts\": 111111111,\r\n  \"name\": \"data_1\",\r\n  \"value\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3002/data/v1/insert_data/connection_1741949073244",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3002",
+							"path": [
+								"data",
+								"v1",
+								"insert_data",
+								"connection_1741949073244"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "influx app",
+			"item": [
+				{
+					"name": "write",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tag\": \"temp\", \r\n    \"value\": 22.5\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/write",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"write"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read all",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "read/filter",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
