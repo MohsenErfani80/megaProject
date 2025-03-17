@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
-const rateLimit = require("express-rate-limit");
+// const rateLimit = require("express-rate-limit");
 const mongoSanitize = require("express-mongo-sanitize");
 const hpp = require("hpp");
 const compression = require("compression");
@@ -77,19 +77,19 @@ module.exports = class Application {
     app.use(helmet.xssFilter());
     app.use(cookieParser());
     // app.use(csrf({ cookie: true }));
-    app.use(
-      rateLimit({
-        windowMs: 60000,
-        max: 300,
-        message: {
-          date: new Date(),
-          success: false,
-          statusCode: 429,
-          message: "We have received too many requests from you.",
-        },
-        validate: { xForwardedForHeader: false },
-      })
-    );
+    // app.use(
+    //   rateLimit({
+    //     windowMs: 60000,
+    //     max: 300,
+    //     message: {
+    //       date: new Date(),
+    //       success: false,
+    //       statusCode: 429,
+    //       message: "We have received too many requests from you.",
+    //     },
+    //     validate: { xForwardedForHeader: false },
+    //   })
+    // );
     app.use((req, res, next) => {
       if (Number(res.statusCode) >= 500) {
         return res.status(500).json({

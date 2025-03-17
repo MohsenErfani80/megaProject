@@ -21,22 +21,15 @@ const dataRepository = require("../repositories/data.repository");
 module.exports = new (class dataController {
 
 insertData = async (req, res) => {
-    const  connectionName  = req.params;
-    console.log(connectionName) 
+    const  connectionName  = req.params; 
     const { ts, name, value } = req.body; 
-    console.log('this is contoller')
+    
     try {
-        console.log('hettt binamos')
-        console.log(connectionName.connectionName )
-        
         const connetion = await dataRepository.findOne({ name : connectionName.connectionName });
         
         if (!connetion) {
             return await transforms.notFound(res, "هیچ کانکشنی با این نام یافت نشد");
         }
-
-
-        console.log(connetion)
         const connectionId = connetion._id;
  
 
@@ -49,9 +42,9 @@ insertData = async (req, res) => {
         };
 
         // ارسال داده به Kafka
-        console.log(taggedData)
         await dataRepository.sendToKafka(res, taggedData);
 
+        // ارسال داده به influx
         const url = 'http://host.docker.internal:3001/write';
         fetch(url, {
             method: 'POST',

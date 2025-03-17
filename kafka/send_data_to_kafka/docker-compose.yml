@@ -14,7 +14,7 @@ services:
       - kafka
 
   mongo:
-    image: mongo:6
+    image: mongo:latest
     container_name: mongo_db
     ports:
       - "27017:27017"
